@@ -1,2 +1,2 @@
-# Rebot_arm
-Rebot_arm的相关开发代码
+# Rebot_Arm
+Rebot_Arm的相关开发代码（毕设——刑侦的移动机器人）
