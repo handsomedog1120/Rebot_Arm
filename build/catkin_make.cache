@@ -1,0 +1,2 @@
+OrbbecSDK_ROS1:aruco_ros/aruco:aruco_ros/aruco_msgs:aruco_ros/aruco_ros:easy_handeye/easy_handeye:easy_handeye/easy_handeye_msgs:easy_handeye/rqt_easy_handeye:forensic3_detector_v3:gluon/ros_gluon/gluon:rebot_sim
+-DCATKIN_DEVEL_PREFIX=/home/zf/forensic_ws/devel -DCMAKE_INSTALL_PREFIX=/home/zf/forensic_ws/install -G Unix Makefiles

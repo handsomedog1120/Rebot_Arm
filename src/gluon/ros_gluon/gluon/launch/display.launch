@@ -1,0 +1,35 @@
+<launch>
+  <!-- ===== 手眼标定结果 (Eye-in-Hand, 6_Link→camera_color_optical_frame) =====
+       真实相机内参 fx=453.122 解算, 18组数据, std=(30,43,4)mm -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="ee_to_camera"
+        args="-0.069893 -0.000623 -0.157372 0 0.707107 0 0.707107 6_Link camera_color_optical_frame"/>
+  <arg
+    name="model" />
+  <arg
+    name="gui"
+    default="false" />
+  <param
+    name="robot_description"
+    textfile="$(find gluon)/urdf/gluon.urdf" />
+  <param
+    name="use_gui"
+    value="$(arg gui)" />
+  <!-- <node
+    name="joint_state_publisher"
+    pkg="joint_state_publisher"
+    type="joint_state_publisher" /> -->
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="robot_state_publisher" />
+  <!-- <node
+    name="rviz"
+    pkg="rviz"
+    type="rviz"
+    args="-d $(find gluon)/urdf.rviz" /> -->
+  <node
+    name="gluon"
+    pkg="gluon"
+    type="gluon_node"
+    output="screen" />
+</launch>

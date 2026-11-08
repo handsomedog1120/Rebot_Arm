@@ -1,0 +1,16 @@
+# 手眼标定结果 (Eye-in-Hand, 真实相机内参 fx=453.122)
+# 6_Link → camera_color_optical_frame
+# 内参: fx=fy=453.122, cx=319.438, cy=240.863 (astra真实值)
+# 数据: 21组有效, 采用剔除后18组
+# 位置偏差 std: (30.3, 42.6, 3.6) mm
+# 平均误差: 47.2mm, 最大: 89.2mm
+#
+# ===== static_transform_publisher 命令行 =====
+rosrun tf2_ros static_transform_publisher -0.069893 -0.000623 -0.157372 0.000000 0.707107 0.000000 0.707107 6_Link camera_color_optical_frame
+#
+# ===== launch 文件写法 =====
+# <node pkg="tf2_ros" type="static_transform_publisher" name="ee_to_camera"
+#       args="-0.069893 -0.000623 -0.157372 0.000000 0.707107 0.000000 0.707107 6_Link camera_color_optical_frame"/>
+#
+# 平移 (米):  x=-0.069893  y=-0.000623  z=-0.157372
+# 四元数:     x=0.000000  y=0.707107  z=0.000000  w=0.707107

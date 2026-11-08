@@ -1,0 +1,41 @@
+reBot 眼在手上手眼标定结果 (2026-08-28)
+================================================
+
+数据: ~/reBot手眼标定 (14组)
+  末端实际位置: arm_server get_pose (pinocchio FK, gripper_end 帧)
+  相机系位姿  : /aruco_single/pose (aruco_single_cv2, marker_id=871,
+                DICT_4X4_1000, marker_size=0.097)
+  h 分离基准  : 夹爪尖端触标定板正中心 get_pose 读数
+                p_bm = (0.288, 0.099, 0.010)
+
+模型 (末端指令姿态 normal=(0,0,-1) 基准, 打印板为镜像marker已含Ry(180)修正):
+  p_base = p_end + A·p_cam + h
+
+标定常量 (已固化到 perception_calib.py, reBot运行链路使用):
+  REBOT_HAND_EYE_A = [[-0.97500769,  0.20610304,  0.08295505],
+                      [ 0.22208289,  0.91465467,  0.33776623],
+                      [-0.00626058,  0.34774757, -0.93756729]]
+  REBOT_HAND_EYE_H = [-0.10420, -0.05538, 0.07412]   (|h|=0.139 m)
+
+相机光轴(基座系) = [0.083, 0.338, -0.938] (朝下俯视, 与竖直夹角约20°)
+
+使用 (rebot_controller_forensic_auto.py compute_target_pose_from_detection):
+  1. get_pose 取当前末端位置 p_be_now、姿态 rpy_now、joints[0]=th1_now
+  2. 扫描期完整公式(2026-08-28 漂移修复):
+       xyz = Rz(-(th1_frame - th1_now)) · [ p_be_now + (R_now·R_y90^T)·(A·p_cam + h) ]
+     (perception_calib.rebot_cam_xyz_to_base_scan)
+     ★ 漂移根因: A/h 只在末端姿态=R_y90(标定14组样本由IK强制)时直接成立;
+       扫描时 j1 摆动 j2~j6 固定, 末端姿态偏离 R_y90 一圈 Rz(-Δθ),
+       偏移项(A·p_cam+h, |.|≈0.3m)若不随姿态旋转, 坐标随 th1 漂移
+       (Δθ≈0.5rad 时漂移 ~15cm, 与现场观察一致)。
+     修正: R_now·R_y90ᵀ 把偏移项从标定姿态旋到当前实际姿态,
+           外层 Rz(-Δ) 再把整体旋回拍照帧时刻。两点代数上精确抵消到
+           Rz(-(θf-θ0)), 与 IK 基准角无关。
+
+精度 (14组回代, 对板心):
+  median 11.4 mm, mean 22.2 mm (含#4组IK野值105mm), z向全部≈板面高度
+  (与旧 GLUON 系统实测 1.4~4.8 cm 同量级; 上限受限于采样时末端姿态
+   恒定导致旋转可辨识度不足, 及 inv_k 姿态误差)
+
+旧 GLUON 标定 (6_Link→camera: 平移-0.069893,-0.000623,-0.157372,
+四元数0,0.7071,0,0.7071) 对 reBot 无效, reBot 链路已不再引用。

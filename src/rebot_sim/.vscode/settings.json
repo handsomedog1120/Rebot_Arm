@@ -1,0 +1,13 @@
+{
+    "ROS2.distro": "noetic",
+    "python.autoComplete.extraPaths": [
+        "/home/zf/forensic_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/home/zf/forensic_ws/src/reBot/reBotArm_control_py"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/zf/forensic_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages",
+        "/home/zf/forensic_ws/src/reBot/reBotArm_control_py"
+    ]
+}

@@ -1,0 +1,18 @@
+#!/bin/bash
+# forensic3_detect_v3 -- ROS entry point (node) for forensic3_detector_v3.
+# forwards to conda py3.8 + torch node (ROS Melodic is python2); 模型 from scratch
+# so CENTERNET_NO_PRETRAINED=1. v3 配套 forensic_3_v3 模型 (ev1/ev2/ev3 数据)。
+set -e
+
+CONDA_PY="${FORENSIC3_DETECT_V3_PY:-${FORENSIC_CONDA_PY:-$HOME/anaconda3/envs/centernet_4060/bin/python}}"
+NODE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+NODE_PY="$NODE_DIR/forensic3_detect_v3_node.py"
+export CENTERNET_NO_PRETRAINED="${CENTERNET_NO_PRETRAINED:-1}"
+
+if [[ ! -f "$NODE_PY" ]]; then
+  echo "[forensic3_detect_v3] node script not found: $NODE_PY" >&2; exit 1
+fi
+if [[ ! -f "$CONDA_PY" ]]; then
+  echo "[forensic3_detect_v3] conda python not found: $CONDA_PY" >&2; exit 1
+fi
+exec "$CONDA_PY" "$NODE_PY" "$@"

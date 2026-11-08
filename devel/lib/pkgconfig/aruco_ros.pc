@@ -1,0 +1,8 @@
+prefix=/home/zf/forensic_ws/devel
+
+Name: aruco_ros
+Description: Description of aruco_ros
+Version: 2.2.3
+Cflags: -I/home/zf/forensic_ws/devel/include -I/home/zf/forensic_ws/src/aruco_ros/aruco_ros/include
+Libs: -L${prefix}/lib -laruco_ros_utils
+Requires: aruco sensor_msgs tf

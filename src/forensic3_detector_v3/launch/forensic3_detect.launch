@@ -1,0 +1,42 @@
+<!--
+  forensic3_detect.launch  (v3)
+  Start Orbbec Astra (stereo u3) + CenterNet 3-class forensic-evidence
+  (tie / liquid / hexagon) realtime detector. 单模型 forensic_3_v3 (from scratch,
+  数据源 ev1/ev2/ev3, tie 重新采集扩充). 话题 /forensic3_detect_v3/*, 与 v1/v2 互不冲突.
+
+  Viewing (conda OpenCV 无 GUI, 用 image_view):
+      rosrun image_view image_view image:=/forensic3_detect_v3/result_image
+-->
+<launch>
+  <include file="$(find orbbec_camera)/launch/gemini_330_series.launch">
+    <arg name="camera_name" value="camera" />
+    <arg name="enable_color" value="true" />
+    <arg name="color_width"  value="640" />
+    <arg name="color_height" value="480" />
+    <arg name="color_fps"    value="30" />
+    <arg name="enable_depth" value="false" />
+    <arg name="enable_point_cloud" value="false" />
+  </include>
+
+  <arg name="display"            default="false" />
+  <arg name="use_region_growing" default="true" />
+  <!-- 抗干扰: 置信度 < vis_thresh 的检测框不显示 (0.3->0.6, 抑制墙/地板等假阳性) -->
+  <arg name="vis_thresh"         default="0.6" />
+
+  <node pkg="forensic3_detector_v3" type="forensic3_detect_v3" name="forensic3_detector_v3"
+        output="screen" respawn="false">
+    <param name="image_topic"        value="/camera/color/image_raw" />
+    <param name="result_topic"      value="/forensic3_detect_v3/result_image" />
+    <param name="fps_topic"         value="/forensic3_detect_v3/fps" />
+    <param name="model_path"        value="/home/zf/forensic_ws/models/forensic3_model_best.pth" />
+    <param name="centernet_src"    value="/home/zf/forensic_ws/src/CenterNet" />
+    <param name="arch"              value="resdcn_18" />
+    <param name="dataset"           value="forensic_3_v3" />
+    <param name="num_classes"       value="3" />
+    <param name="vis_thresh"        value="$(arg vis_thresh)" />
+    <param name="use_region_growing" value="$(arg use_region_growing)" />
+    <param name="display"           value="$(arg display)" />
+    <env name="CENTERNET_NO_PRETRAINED" value="1" />
+    <env name="CENTERNET_SRC" value="/home/zf/forensic_ws/src/CenterNet" />
+  </node>
+</launch>

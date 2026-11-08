@@ -1,0 +1,15 @@
+<launch>
+  <node
+    name="gluon_talker"
+    pkg="gluon"
+    type="pub2gluon.py" />
+<node
+    name="gluon_plot"
+    pkg="gluon"
+    type="gluon_listener_plot.py" />
+  <node
+    name="gluon"
+    pkg="gluon"
+    type="gluon_node"
+    output="screen" />
+</launch>

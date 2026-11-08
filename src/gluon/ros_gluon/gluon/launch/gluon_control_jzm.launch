@@ -1,0 +1,15 @@
+<launch>
+  <node
+    name="gluon_controller"
+    pkg="gluon"
+    type="gluon_controller.py" />
+  <node
+    name="webots_map_publisher"
+    pkg="gluon"
+    type="g2wmap.py" />
+  <node
+    name="gluon"
+    pkg="gluon"
+    type="gluon_node"
+    output="screen" />
+</launch>

@@ -1,0 +1,8 @@
+prefix=/home/zf/forensic_ws/install
+
+Name: forensic3_detector_v3
+Description: Description of forensic3_detector_v3
+Version: 3.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

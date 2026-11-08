@@ -1,0 +1,8 @@
+prefix=/home/zf/forensic_ws/devel
+
+Name: rebot_sim
+Description: Description of rebot_sim
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

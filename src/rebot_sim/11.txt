@@ -1,0 +1,20 @@
+<launch>
+    <!-- true: 弹出关节滑块窗口(joint_state_publisher_gui); false: 用默认零位 -->
+    <arg name="gui" default="true"/>
+
+    <!-- 参数名必须是 robot_description, robot_state_publisher 才能读取并发布 -->
+    <param name="robot_description"
+           textfile="$(find rebot_sim)/rebot_description/urdf/00-arm-rs_asm-v3.urdf"/>
+
+    <!-- 发布 /joint_states, 驱动活动关节(6个revolute+夹爪2个prismatic) -->
+    <node if="$(arg gui)" name="joint_state_publisher_gui"
+          pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/>
+    <node unless="$(arg gui)" name="joint_state_publisher"
+          pkg="joint_state_publisher" type="joint_state_publisher"/>
+
+    <!-- 发布 /robot_description 话题和 TF 树, RViz 的 RobotModel 依赖它 -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher"
+          type="robot_state_publisher"/>
+
+    <node name="rviz" pkg="rviz" type="rviz"/>
+</launch>

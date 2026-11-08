@@ -1,0 +1,14 @@
+<launch>
+    
+    <!-- 参数名必须是 robot_description, robot_state_publisher 才能读取并发布 -->
+    <param name="robot_description"
+           textfile="$(find rebot_sim)/rebot_description/urdf/00-arm-rs_asm-v3.urdf"/>
+
+   <node pkg="rebot_sim" name="rebot_points_sim_node" type="rebot_sim_node.py"/>
+
+    <!-- 发布 /robot_description 话题和 TF 树, RViz 的 RobotModel 依赖它 -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher"
+          type="robot_state_publisher"/>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rebot_sim)/rviz/rebot.rviz" />
+</launch>

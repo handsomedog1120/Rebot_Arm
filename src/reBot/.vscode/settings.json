@@ -1,0 +1,13 @@
+{
+    "ROS2.distro": "noetic",
+    "cmake.sourceDirectory": "/home/zf/forensic_ws/src/reBot/motorbridge/bindings/cpp",
+    "ros.distro": "noetic",
+    "python.autoComplete.extraPaths": [
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda"
+}

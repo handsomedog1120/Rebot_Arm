@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>forensic3_detector_v3</name>
+  <version>3.0.0</version>
+  <description>
+    Real-time CenterNet 3-class forensic-evidence (tie / liquid / hexagon)
+    detector driven by an Orbbec Astra camera. Model forensic_3_v3 trained from
+    scratch (no backbone pretraining) on ev1/ev2/ev3 data (tie re-collected with
+    more diversity). v3 shares no association with paper. Detection node runs
+    under conda python3.8 + PyTorch (centernet_4060), launched through a thin
+    bash wrapper interoperating with the ROS Melodic (python2) camera driver.
+  </description>
+  <maintainer email="m1ko@example.com">m1ko</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+
+  <export>
+  </export>
+</package>

@@ -1,0 +1,7 @@
+<launch>
+  <node
+    name="gluon_controller"
+    pkg="gluon"
+    type="gluon_controller_kk.py"
+    output="screen"  />
+</launch>
